@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.time.Instant;
 import java.util.List;
@@ -40,13 +41,8 @@ public class ClassSeedController {
     @RequestMapping(path = "/class", method = RequestMethod.POST)
     public HttpEntity seedClasses() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource("seed/classes.json");
-        if (resource == null) {
-            throw new FileNotFoundException("classes.json is missing");
-        }
-        File seedFile = new File(resource.getFile());
-        List<SeedClass> seedClasses = mapper.readValue(seedFile, new TypeReference<List<SeedClass>>() {
+        InputStream resourceAsStream = this.getClass().getResourceAsStream("/seed/classes.json");
+        List<SeedClass> seedClasses = mapper.readValue(resourceAsStream, new TypeReference<List<SeedClass>>() {
         });
         for (SeedClass seedClass : seedClasses) {
             log.info(seedClass.getName());
@@ -97,13 +93,8 @@ public class ClassSeedController {
     @RequestMapping(path = "/table", method = RequestMethod.POST)
     public HttpEntity seedClassTables() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource("seed/classlevel.json");
-        if (resource == null) {
-            throw new FileNotFoundException("classlevel.json is missing");
-        }
-        File seedFile = new File(resource.getFile());
-        List<SeedClassLevel> seedClassLevels = mapper.readValue(seedFile, new TypeReference<List<SeedClassLevel>>() {});
+        InputStream resourceAsStream = this.getClass().getResourceAsStream("/seed/classlevel.json");
+        List<SeedClassLevel> seedClassLevels = mapper.readValue(resourceAsStream, new TypeReference<List<SeedClassLevel>>() {});
         for (SeedClassLevel seedClassLevel : seedClassLevels) {
             log.info(seedClassLevel.getName() + ":" + seedClassLevel.getLevel());
             ClassLevel classLevel = ClassLevel.builder()
