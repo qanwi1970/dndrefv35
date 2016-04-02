@@ -37,7 +37,7 @@ public class ClassController {
             @RequestParam(value = "sort", defaultValue = "name", required = false) String sortProperty) {
         PageRequest pageRequest = new PageRequest(page, count, new Sort(direction, sortProperty));
         Page<ClassCharacter> result = classRepository.findAll(pageRequest);
-        return new ResponseEntity<>(result.getContent(), HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{classId}", method = RequestMethod.GET)
@@ -56,15 +56,16 @@ public class ClassController {
         classCharacter.setCreatedTime(now);
         classCharacter.setModifiedTime(now);
         ClassCharacter savedClass = classRepository.save(classCharacter);
+        ClassCharacterResource resource = new ClassCharacterResource(savedClass);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setLocation(ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{classId}")
                 .buildAndExpand(savedClass.getClassCharacterId()).toUri());
-        return new ResponseEntity<>(savedClass, httpHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<>(resource, httpHeaders, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{classId}", method = RequestMethod.PUT)
-    public ClassCharacter update(@PathVariable UUID classId, @RequestBody @Valid ClassCharacter classCharacter) {
+    public HttpEntity<?> update(@PathVariable UUID classId, @RequestBody @Valid ClassCharacter classCharacter) {
         ClassCharacter oldClass = classRepository.findOne(classId);
         if (oldClass == null) throw new CharacterClassNotFoundException(classId);
 
@@ -72,12 +73,16 @@ public class ClassController {
         classCharacter.setCreatedTime(oldClass.getCreatedTime());
         classCharacter.setModifiedTime(Instant.now().getEpochSecond());
 
-        return classRepository.save(classCharacter);
+        ClassCharacter newClass = classRepository.save(classCharacter);
+        ClassCharacterResource resource = new ClassCharacterResource(newClass);
+
+        return new ResponseEntity<>(resource, HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "/{classId}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable UUID classId) {
+    public HttpEntity<?> delete(@PathVariable UUID classId) {
         classRepository.delete(classId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
