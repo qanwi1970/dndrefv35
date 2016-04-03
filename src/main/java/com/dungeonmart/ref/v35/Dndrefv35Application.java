@@ -9,8 +9,9 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class Dndrefv35Application {
 
-    // TODO Authentication
-    // TODO SpringSecurityAuditorAware
+	// TODO Profiles
+	// TODO unit tests
+	// TODO Integration tests
 
 	@Bean
 	CommandLineRunner seedData(ClassSeedController classSeedController) {

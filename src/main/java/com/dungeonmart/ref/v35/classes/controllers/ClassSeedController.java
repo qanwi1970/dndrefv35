@@ -78,10 +78,6 @@ public class ClassSeedController {
                     .spellList5(seedClass.getSpell_list_5())
                     .fullText(unescapeHtml4(seedClass.getFull_text()))
                     .reference(seedClass.getReference())
-                    .createdBy("seed")
-                    .createdTime(Instant.now().getEpochSecond())
-                    .modifiedBy("seed")
-                    .modifiedTime(Instant.now().getEpochSecond())
                     .seedData(true)
                     .build();
             classRepository.save(classCharacter);
@@ -135,6 +131,7 @@ public class ClassSeedController {
                     .spellsKnown8(seedClassLevel.getSpells_known_8())
                     .spellsKnown9(seedClassLevel.getSpells_known_9())
                     .reference(seedClassLevel.getReference())
+                    .seedData(true)
                     .build();
             classLevelRepository.save(classLevel);
         }

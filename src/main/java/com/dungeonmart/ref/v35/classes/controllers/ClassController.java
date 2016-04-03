@@ -52,9 +52,6 @@ public class ClassController {
 
     @RequestMapping(method = RequestMethod.POST)
     public HttpEntity<?> create(@RequestBody @Valid ClassCharacter classCharacter) {
-        long now = Instant.now().getEpochSecond();
-        classCharacter.setCreatedTime(now);
-        classCharacter.setModifiedTime(now);
         ClassCharacter savedClass = classRepository.save(classCharacter);
         ClassCharacterResource resource = new ClassCharacterResource(savedClass);
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -70,8 +67,6 @@ public class ClassController {
         if (oldClass == null) throw new CharacterClassNotFoundException(classId);
 
         classCharacter.setClassCharacterId(classId);
-        classCharacter.setCreatedTime(oldClass.getCreatedTime());
-        classCharacter.setModifiedTime(Instant.now().getEpochSecond());
 
         ClassCharacter newClass = classRepository.save(classCharacter);
         ClassCharacterResource resource = new ClassCharacterResource(newClass);

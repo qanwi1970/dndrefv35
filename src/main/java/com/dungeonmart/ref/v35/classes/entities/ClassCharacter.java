@@ -3,11 +3,13 @@ package com.dungeonmart.ref.v35.classes.entities;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -17,6 +19,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class ClassCharacter implements Serializable {
 
     @Id
@@ -94,13 +97,19 @@ public class ClassCharacter implements Serializable {
 
     private String reference;
 
+    @CreatedBy
+    @Column(updatable = false)
     private String createdBy;
 
-    private long createdTime;
+    @CreatedDate
+    @Column(updatable = false)
+    private long createdDate;
 
+    @LastModifiedBy
     private String modifiedBy;
 
-    private long modifiedTime;
+    @LastModifiedDate
+    private long modifiedDate;
 
     private boolean seedData;
 
