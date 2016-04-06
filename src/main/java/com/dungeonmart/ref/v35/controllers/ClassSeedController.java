@@ -1,11 +1,11 @@
-package com.dungeonmart.ref.v35.classes.controllers;
+package com.dungeonmart.ref.v35.controllers;
 
-import com.dungeonmart.ref.v35.classes.entities.ClassCharacter;
-import com.dungeonmart.ref.v35.classes.entities.ClassLevel;
-import com.dungeonmart.ref.v35.classes.entities.SeedClass;
-import com.dungeonmart.ref.v35.classes.entities.SeedClassLevel;
-import com.dungeonmart.ref.v35.classes.repositories.ClassLevelRepository;
-import com.dungeonmart.ref.v35.classes.repositories.ClassRepository;
+import com.dungeonmart.ref.v35.entities.ClassCharacter;
+import com.dungeonmart.ref.v35.entities.ClassLevel;
+import com.dungeonmart.ref.v35.seeds.SeedClass;
+import com.dungeonmart.ref.v35.seeds.SeedClassLevel;
+import com.dungeonmart.ref.v35.repositories.ClassLevelRepository;
+import com.dungeonmart.ref.v35.repositories.ClassRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -17,12 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.time.Instant;
 import java.util.List;
 
 import static org.apache.commons.lang3.StringEscapeUtils.unescapeHtml4;

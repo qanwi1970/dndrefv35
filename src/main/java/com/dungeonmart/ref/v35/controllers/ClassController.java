@@ -1,9 +1,9 @@
-package com.dungeonmart.ref.v35.classes.controllers;
+package com.dungeonmart.ref.v35.controllers;
 
-import com.dungeonmart.ref.v35.classes.entities.ClassCharacter;
-import com.dungeonmart.ref.v35.classes.exceptions.CharacterClassNotFoundException;
-import com.dungeonmart.ref.v35.classes.repositories.ClassRepository;
-import com.dungeonmart.ref.v35.classes.resources.ClassCharacterResource;
+import com.dungeonmart.ref.v35.entities.ClassCharacter;
+import com.dungeonmart.ref.v35.exceptions.CharacterClassNotFoundException;
+import com.dungeonmart.ref.v35.repositories.ClassRepository;
+import com.dungeonmart.ref.v35.resources.ClassCharacterResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.time.Instant;
 import java.util.UUID;
 
 @RestController

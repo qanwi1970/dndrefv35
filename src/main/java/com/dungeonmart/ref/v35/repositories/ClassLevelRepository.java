@@ -1,6 +1,6 @@
-package com.dungeonmart.ref.v35.classes.repositories;
+package com.dungeonmart.ref.v35.repositories;
 
-import com.dungeonmart.ref.v35.classes.entities.ClassLevel;
+import com.dungeonmart.ref.v35.entities.ClassLevel;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 

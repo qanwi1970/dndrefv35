@@ -1,8 +1,8 @@
-package com.dungeonmart.ref.v35.classes.resources;
+package com.dungeonmart.ref.v35.resources;
 
-import com.dungeonmart.ref.v35.classes.controllers.ClassController;
-import com.dungeonmart.ref.v35.classes.controllers.ClassLevelController;
-import com.dungeonmart.ref.v35.classes.entities.ClassCharacter;
+import com.dungeonmart.ref.v35.controllers.ClassController;
+import com.dungeonmart.ref.v35.controllers.ClassLevelController;
+import com.dungeonmart.ref.v35.entities.ClassCharacter;
 import org.springframework.hateoas.ResourceSupport;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;

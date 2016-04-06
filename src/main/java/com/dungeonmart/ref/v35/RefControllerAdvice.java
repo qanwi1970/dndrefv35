@@ -1,7 +1,7 @@
-package com.dungeonmart.ref.v35.classes.controllers;
+package com.dungeonmart.ref.v35;
 
-import com.dungeonmart.ref.v35.classes.exceptions.CharacterClassNotFoundException;
-import com.dungeonmart.ref.v35.classes.exceptions.ClassLevelNotFoundException;
+import com.dungeonmart.ref.v35.exceptions.CharacterClassNotFoundException;
+import com.dungeonmart.ref.v35.exceptions.ClassLevelNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.VndErrors;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Slf4j
 @ControllerAdvice
-public class ClassControllerAdvice {
+public class RefControllerAdvice {
 
     @ResponseBody
     @ExceptionHandler(CharacterClassNotFoundException.class)

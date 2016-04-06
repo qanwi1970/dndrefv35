@@ -1,4 +1,4 @@
-package com.dungeonmart.ref.v35.classes.entities;
+package com.dungeonmart.ref.v35.seeds;
 
 import lombok.*;
 

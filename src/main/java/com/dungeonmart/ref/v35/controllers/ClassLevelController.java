@@ -1,11 +1,11 @@
-package com.dungeonmart.ref.v35.classes.controllers;
+package com.dungeonmart.ref.v35.controllers;
 
-import com.dungeonmart.ref.v35.classes.entities.ClassCharacter;
-import com.dungeonmart.ref.v35.classes.entities.ClassLevel;
-import com.dungeonmart.ref.v35.classes.exceptions.CharacterClassNotFoundException;
-import com.dungeonmart.ref.v35.classes.exceptions.ClassLevelNotFoundException;
-import com.dungeonmart.ref.v35.classes.repositories.ClassLevelRepository;
-import com.dungeonmart.ref.v35.classes.repositories.ClassRepository;
+import com.dungeonmart.ref.v35.entities.ClassCharacter;
+import com.dungeonmart.ref.v35.entities.ClassLevel;
+import com.dungeonmart.ref.v35.exceptions.CharacterClassNotFoundException;
+import com.dungeonmart.ref.v35.exceptions.ClassLevelNotFoundException;
+import com.dungeonmart.ref.v35.repositories.ClassLevelRepository;
+import com.dungeonmart.ref.v35.repositories.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;

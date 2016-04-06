@@ -1,6 +1,6 @@
 package com.dungeonmart.ref.v35;
 
-import com.dungeonmart.ref.v35.classes.controllers.ClassSeedController;
+import com.dungeonmart.ref.v35.controllers.ClassSeedController;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
