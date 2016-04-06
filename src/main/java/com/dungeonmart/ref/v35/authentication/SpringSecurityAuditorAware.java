@@ -12,7 +12,7 @@ public class SpringSecurityAuditorAware implements AuditorAware<String> {
 
     @Override
     public String getCurrentAuditor() {
-        log.info("getCurrentAuditor");
+        log.trace("getCurrentAuditor");
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()){

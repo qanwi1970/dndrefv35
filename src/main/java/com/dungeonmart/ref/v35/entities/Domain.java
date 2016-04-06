@@ -28,6 +28,7 @@ public class Domain {
 
     private String name;
 
+    @Column(columnDefinition = "VARCHAR(1024)")
     private String grantedPowers;
 
     private String spell1;

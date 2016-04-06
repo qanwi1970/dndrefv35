@@ -2,10 +2,13 @@ package com.dungeonmart.ref.v35.controllers;
 
 import com.dungeonmart.ref.v35.entities.ClassCharacter;
 import com.dungeonmart.ref.v35.entities.ClassLevel;
+import com.dungeonmart.ref.v35.entities.Domain;
+import com.dungeonmart.ref.v35.repositories.DomainRepository;
 import com.dungeonmart.ref.v35.seeds.SeedClass;
 import com.dungeonmart.ref.v35.seeds.SeedClassLevel;
 import com.dungeonmart.ref.v35.repositories.ClassLevelRepository;
 import com.dungeonmart.ref.v35.repositories.ClassRepository;
+import com.dungeonmart.ref.v35.seeds.SeedDomain;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -26,13 +29,16 @@ import static org.apache.commons.lang3.StringEscapeUtils.unescapeHtml4;
 @Slf4j
 @RestController
 @RequestMapping("/seed")
-public class ClassSeedController {
+public class SeedController {
 
     @Autowired
     private ClassRepository classRepository;
 
     @Autowired
     private ClassLevelRepository classLevelRepository;
+
+    @Autowired
+    private DomainRepository domainRepository;
 
     @RequestMapping(path = "/class", method = RequestMethod.POST)
     public HttpEntity seedClasses() throws IOException {
@@ -132,6 +138,35 @@ public class ClassSeedController {
             classLevelRepository.save(classLevel);
         }
 
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/domain", method = RequestMethod.POST)
+    public HttpEntity seedDomains() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        InputStream resourceAsStream = this.getClass().getResourceAsStream("/seed/domains.json");
+        List<SeedDomain> seedDomains = mapper.readValue(resourceAsStream, new TypeReference<List<SeedDomain>>() {
+        });
+        for (SeedDomain seedDomain : seedDomains) {
+            log.info(seedDomain.getName());
+            Domain domain = Domain.builder()
+                    .name(seedDomain.getName())
+                    .grantedPowers(seedDomain.getGranted_powers())
+                    .spell1(seedDomain.getSpell_1())
+                    .spell2(seedDomain.getSpell_2())
+                    .spell3(seedDomain.getSpell_3())
+                    .spell4(seedDomain.getSpell_4())
+                    .spell5(seedDomain.getSpell_5())
+                    .spell6(seedDomain.getSpell_6())
+                    .spell7(seedDomain.getSpell_7())
+                    .spell8(seedDomain.getSpell_8())
+                    .spell9(seedDomain.getSpell_9())
+                    .fullText(unescapeHtml4(seedDomain.getFull_text()))
+                    .reference(seedDomain.getReference())
+                    .seedData(true)
+                    .build();
+            domainRepository.save(domain);
+        }
         return new ResponseEntity(HttpStatus.OK);
     }
 }
