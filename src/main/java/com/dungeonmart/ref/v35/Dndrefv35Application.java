@@ -19,6 +19,7 @@ public class Dndrefv35Application {
 			classSeedController.seedClasses();
 			classSeedController.seedClassTables();
 			classSeedController.seedDomains();
+			classSeedController.seedEquipment();
 		};
 	}
 

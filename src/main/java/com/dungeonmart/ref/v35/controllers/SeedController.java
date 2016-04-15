@@ -3,12 +3,15 @@ package com.dungeonmart.ref.v35.controllers;
 import com.dungeonmart.ref.v35.entities.ClassCharacter;
 import com.dungeonmart.ref.v35.entities.ClassLevel;
 import com.dungeonmart.ref.v35.entities.Domain;
+import com.dungeonmart.ref.v35.entities.Equipment;
 import com.dungeonmart.ref.v35.repositories.DomainRepository;
+import com.dungeonmart.ref.v35.repositories.EquipmentRepository;
 import com.dungeonmart.ref.v35.seeds.SeedClass;
 import com.dungeonmart.ref.v35.seeds.SeedClassLevel;
 import com.dungeonmart.ref.v35.repositories.ClassLevelRepository;
 import com.dungeonmart.ref.v35.repositories.ClassRepository;
 import com.dungeonmart.ref.v35.seeds.SeedDomain;
+import com.dungeonmart.ref.v35.seeds.SeedEquipment;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +42,9 @@ public class SeedController {
 
     @Autowired
     private DomainRepository domainRepository;
+
+    @Autowired
+    private EquipmentRepository equipmentRepository;
 
     @RequestMapping(path = "/class", method = RequestMethod.POST)
     public HttpEntity seedClasses() throws IOException {
@@ -166,6 +172,40 @@ public class SeedController {
                     .seedData(true)
                     .build();
             domainRepository.save(domain);
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/equipment", method = RequestMethod.POST)
+    public HttpEntity seedEquipment() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        InputStream resourceAsStream = this.getClass().getResourceAsStream("/seed/equipment.json");
+        List<SeedEquipment> seedEquipments = mapper.readValue(resourceAsStream, new TypeReference<List<SeedEquipment>>(){});
+        for (SeedEquipment seedEquipment : seedEquipments) {
+            log.info(seedEquipment.getName());
+            Equipment equipment = Equipment.builder()
+                    .name(seedEquipment.getName())
+                    .family(seedEquipment.getFamily())
+                    .category(seedEquipment.getCategory())
+                    .subcategory(seedEquipment.getSubcategory())
+                    .cost(seedEquipment.getCost())
+                    .damageSmall(seedEquipment.getDmg_s())
+                    .armorShieldBonus(seedEquipment.getArmor_shield_bonus())
+                    .maximumDexBonus(seedEquipment.getMaximum_dex_bonus())
+                    .damageMedium(seedEquipment.getDmg_m())
+                    .weight(seedEquipment.getWeight())
+                    .critical(seedEquipment.getCritical())
+                    .armorCheckPenalty(seedEquipment.getArmor_check_penalty())
+                    .arcaneSpellFailureChance(seedEquipment.getArcane_spell_failure_chance())
+                    .rangeIncrement(seedEquipment.getRange_increment())
+                    .speed30(seedEquipment.getSpeed_30())
+                    .type(seedEquipment.getType())
+                    .speed20(seedEquipment.getSpeed_20())
+                    .fullText(unescapeHtml4(seedEquipment.getFull_text()))
+                    .reference(seedEquipment.getReference())
+                    .seedData(true)
+                    .build();
+            equipmentRepository.save(equipment);
         }
         return new ResponseEntity(HttpStatus.OK);
     }
