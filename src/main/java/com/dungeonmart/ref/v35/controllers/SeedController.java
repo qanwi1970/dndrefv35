@@ -1,17 +1,8 @@
 package com.dungeonmart.ref.v35.controllers;
 
-import com.dungeonmart.ref.v35.entities.ClassCharacter;
-import com.dungeonmart.ref.v35.entities.ClassLevel;
-import com.dungeonmart.ref.v35.entities.Domain;
-import com.dungeonmart.ref.v35.entities.Equipment;
-import com.dungeonmart.ref.v35.repositories.DomainRepository;
-import com.dungeonmart.ref.v35.repositories.EquipmentRepository;
-import com.dungeonmart.ref.v35.seeds.SeedClass;
-import com.dungeonmart.ref.v35.seeds.SeedClassLevel;
-import com.dungeonmart.ref.v35.repositories.ClassLevelRepository;
-import com.dungeonmart.ref.v35.repositories.ClassRepository;
-import com.dungeonmart.ref.v35.seeds.SeedDomain;
-import com.dungeonmart.ref.v35.seeds.SeedEquipment;
+import com.dungeonmart.ref.v35.entities.*;
+import com.dungeonmart.ref.v35.repositories.*;
+import com.dungeonmart.ref.v35.seeds.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +36,9 @@ public class SeedController {
 
     @Autowired
     private EquipmentRepository equipmentRepository;
+
+    @Autowired
+    private FeatRepository featRepository;
 
     @RequestMapping(path = "/class", method = RequestMethod.POST)
     public HttpEntity seedClasses() throws IOException {
@@ -206,6 +200,32 @@ public class SeedController {
                     .seedData(true)
                     .build();
             equipmentRepository.save(equipment);
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/feat", method = RequestMethod.POST)
+    public HttpEntity seedFeats() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        InputStream resourceAsStream = this.getClass().getResourceAsStream("/seed/feats.json");
+        List<SeedFeat> seedFeats = mapper.readValue(resourceAsStream, new TypeReference<List<SeedFeat>>(){});
+        for (SeedFeat seedFeat : seedFeats) {
+            log.info(seedFeat.getName());
+            Feat feat = Feat.builder()
+                    .name(seedFeat.getName())
+                    .type(seedFeat.getType())
+                    .multiple(seedFeat.getMultiple())
+                    .stack(seedFeat.getStack())
+                    .choice(seedFeat.getChoice())
+                    .prerequisite(seedFeat.getPrerequisite())
+                    .benefit(unescapeHtml4(seedFeat.getBenefit()))
+                    .normal(seedFeat.getNormal())
+                    .special(seedFeat.getSpecial())
+                    .fullText(unescapeHtml4(seedFeat.getFull_text()))
+                    .reference(seedFeat.getReference())
+                    .seedData(true)
+                    .build();
+            featRepository.save(feat);
         }
         return new ResponseEntity(HttpStatus.OK);
     }
