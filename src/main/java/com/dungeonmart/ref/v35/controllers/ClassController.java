@@ -18,8 +18,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.util.UUID;
 
-@RestController
-@RequestMapping("/classes")
+//@RestController
+//@RequestMapping("/classes")
 public class ClassController {
     private final ClassRepository classRepository;
 
