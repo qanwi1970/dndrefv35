@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RestController
 public class HomeController {
-    @RequestMapping(path = "/")
+    @RequestMapping(path = "/info")
     public HttpEntity<?> getInfo() {
         Map<String, String> infoMap = new HashMap<>();
         infoMap.put("name", "Dungeonmart D&D v3.5 Reference");
