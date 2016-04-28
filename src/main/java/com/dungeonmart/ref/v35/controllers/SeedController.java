@@ -40,6 +40,9 @@ public class SeedController {
     @Autowired
     private FeatRepository featRepository;
 
+    @Autowired
+    private ItemRepository itemRepository;
+
     @RequestMapping(path = "/class", method = RequestMethod.POST)
     public HttpEntity seedClasses() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
@@ -226,6 +229,34 @@ public class SeedController {
                     .seedData(true)
                     .build();
             featRepository.save(feat);
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/item", method = RequestMethod.POST)
+    public HttpEntity seedItems() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        InputStream resourceAsStream = this.getClass().getResourceAsStream("/seed/item.json");
+        List<SeedItem> seedItems = mapper.readValue(resourceAsStream, new TypeReference<List<SeedItem>>(){});
+        for (SeedItem seedItem : seedItems) {
+            log.info(seedItem.getName());
+            Item item = Item.builder()
+                    .name(seedItem.getName())
+                    .category(seedItem.getCategory())
+                    .subcategory(seedItem.getSubcategory())
+                    .specialAbility(seedItem.getSpecial_ability())
+                    .aura(seedItem.getAura())
+                    .casterLevel(seedItem.getCaster_level())
+                    .price(seedItem.getPrice())
+                    .manifesterLevel(seedItem.getManifester_level())
+                    .preRequisites(seedItem.getPrereq())
+                    .cost(seedItem.getCost())
+                    .weight(seedItem.getWeight())
+                    .fullText(unescapeHtml4(seedItem.getFull_text()))
+                    .reference(seedItem.getReference())
+                    .seedData(true)
+                    .build();
+            itemRepository.save(item);
         }
         return new ResponseEntity(HttpStatus.OK);
     }
