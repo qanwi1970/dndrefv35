@@ -12,6 +12,7 @@ public class Dndrefv35Application {
 	// TODO Profiles
 	// TODO unit tests
 	// TODO Integration tests
+	// TODO resolve differences between manual controllers and automated controllers
 
 	@Bean
 	CommandLineRunner seedData(SeedController classSeedController) {
