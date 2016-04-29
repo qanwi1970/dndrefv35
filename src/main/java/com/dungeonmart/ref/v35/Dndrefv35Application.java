@@ -1,11 +1,21 @@
 package com.dungeonmart.ref.v35;
 
 import com.dungeonmart.ref.v35.controllers.SeedController;
+import com.dungeonmart.ref.v35.entities.Power;
+import com.dungeonmart.ref.v35.repositories.PowerRepository;
+import com.dungeonmart.ref.v35.seeds.SeedPower;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.io.InputStream;
+import java.util.List;
+
+@Slf4j
 @SpringBootApplication
 public class Dndrefv35Application {
 
@@ -27,7 +37,15 @@ public class Dndrefv35Application {
 		};
 	}
 
-	public static void main(String[] args) {
+    @Bean
+    CommandLineRunner seedPowers(PowerRepository powerRepository) {
+        return (evt) -> {
+            SeedPower seedPower = new SeedPower();
+            seedPower.loadPowers(powerRepository);
+        };
+    }
+
+    public static void main(String[] args) {
 		SpringApplication.run(Dndrefv35Application.class, args);
 	}
 }

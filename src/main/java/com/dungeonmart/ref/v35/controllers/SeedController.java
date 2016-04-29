@@ -46,6 +46,9 @@ public class SeedController {
     @Autowired
     private MonsterRepository monsterRepository;
 
+    @Autowired
+    private PowerRepository powerRepository;
+
     @RequestMapping(path = "/class", method = RequestMethod.POST)
     public HttpEntity seedClasses() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
@@ -312,6 +315,13 @@ public class SeedController {
                     .build();
             monsterRepository.save(monster);
         }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/power", method = RequestMethod.POST)
+    public HttpEntity seedPowers() throws IOException {
+//        SeedPower seedPower = new SeedPower();
+//        seedPower.loadPowers();
         return new ResponseEntity(HttpStatus.OK);
     }
 }
