@@ -43,6 +43,9 @@ public class SeedController {
     @Autowired
     private ItemRepository itemRepository;
 
+    @Autowired
+    private MonsterRepository monsterRepository;
+
     @RequestMapping(path = "/class", method = RequestMethod.POST)
     public HttpEntity seedClasses() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
@@ -257,6 +260,57 @@ public class SeedController {
                     .seedData(true)
                     .build();
             itemRepository.save(item);
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/monster", method = RequestMethod.POST)
+    public HttpEntity seedMonsters() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        InputStream resourceAsStream = this.getClass().getResourceAsStream("/seed/monster.json");
+        List<SeedMonster> seedMonsters = mapper.readValue(resourceAsStream, new TypeReference<List<SeedMonster>>() {
+        });
+        for (SeedMonster seedMonster : seedMonsters) {
+            log.info(seedMonster.getName());
+            Monster monster = Monster.builder()
+                    .family(seedMonster.getFamily())
+                    .name(seedMonster.getName())
+                    .altname(seedMonster.getAltname())
+                    .size(seedMonster.getSize())
+                    .type(seedMonster.getType())
+                    .descriptor(seedMonster.getDescriptor())
+                    .hitDice(seedMonster.getHit_dice())
+                    .initiative(seedMonster.getInitiative())
+                    .speed(seedMonster.getSpeed())
+                    .armorClass(seedMonster.getArmor_class())
+                    .baseAttack(seedMonster.getBase_attack())
+                    .grapple(seedMonster.getGrapple())
+                    .attack(seedMonster.getAttack())
+                    .fullAttack(seedMonster.getFull_attack())
+                    .space(seedMonster.getSpace())
+                    .reach(seedMonster.getReach())
+                    .specialAttacks(seedMonster.getSpecial_attacks())
+                    .specialQualities(seedMonster.getSpecial_qualities())
+                    .saves(seedMonster.getSaves())
+                    .abilities(seedMonster.getAbilities())
+                    .skills(seedMonster.getSkills())
+                    .bonusFeats(seedMonster.getBonus_feats())
+                    .feats(seedMonster.getFeats())
+                    .epicFeats(seedMonster.getEpic_feats())
+                    .environment(seedMonster.getEnvironment())
+                    .organization(seedMonster.getOrganization())
+                    .challengeRating(seedMonster.getChallenge_rating())
+                    .treasure(seedMonster.getTreasure())
+                    .alignment(seedMonster.getAlignment())
+                    .advancement(seedMonster.getAdvancement())
+                    .levelAdjustment(seedMonster.getLevel_adjustment())
+                    .specialAbilities(seedMonster.getSpecial_abilities())
+                    .statBlock(seedMonster.getStat_block())
+                    .fullText(unescapeHtml4(seedMonster.getFull_text()))
+                    .reference(seedMonster.getReference())
+                    .seedData(true)
+                    .build();
+            monsterRepository.save(monster);
         }
         return new ResponseEntity(HttpStatus.OK);
     }
