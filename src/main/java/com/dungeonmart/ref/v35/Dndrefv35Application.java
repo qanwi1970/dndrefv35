@@ -3,7 +3,9 @@ package com.dungeonmart.ref.v35;
 import com.dungeonmart.ref.v35.controllers.SeedController;
 import com.dungeonmart.ref.v35.entities.Power;
 import com.dungeonmart.ref.v35.repositories.PowerRepository;
+import com.dungeonmart.ref.v35.repositories.SkillRepository;
 import com.dungeonmart.ref.v35.seeds.SeedPower;
+import com.dungeonmart.ref.v35.seeds.SeedSkill;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +46,14 @@ public class Dndrefv35Application {
             seedPower.loadPowers(powerRepository);
         };
     }
+
+	@Bean
+	CommandLineRunner seedSkills(SkillRepository skillRepository) {
+		return (evt) -> {
+			SeedSkill seedSkill = new SeedSkill();
+			seedSkill.loadSkills(skillRepository);
+		};
+	}
 
     public static void main(String[] args) {
 		SpringApplication.run(Dndrefv35Application.class, args);
