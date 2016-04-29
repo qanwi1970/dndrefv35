@@ -4,8 +4,10 @@ import com.dungeonmart.ref.v35.controllers.SeedController;
 import com.dungeonmart.ref.v35.entities.Power;
 import com.dungeonmart.ref.v35.repositories.PowerRepository;
 import com.dungeonmart.ref.v35.repositories.SkillRepository;
+import com.dungeonmart.ref.v35.repositories.SpellRepository;
 import com.dungeonmart.ref.v35.seeds.SeedPower;
 import com.dungeonmart.ref.v35.seeds.SeedSkill;
+import com.dungeonmart.ref.v35.seeds.SeedSpell;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,7 @@ public class Dndrefv35Application {
 	// TODO unit tests
 	// TODO Integration tests
 	// TODO resolve differences between manual controllers and automated controllers
+    // TODO Do all the CommandLineRunners have to go here?
 
 	@Bean
 	CommandLineRunner seedData(SeedController classSeedController) {
@@ -54,6 +57,14 @@ public class Dndrefv35Application {
 			seedSkill.loadSkills(skillRepository);
 		};
 	}
+
+    @Bean
+    CommandLineRunner seedSpells(SpellRepository spellRepository) {
+        return (evt) -> {
+            SeedSpell seedSpell = new SeedSpell();
+            seedSpell.loadSpells(spellRepository);
+        };
+    }
 
     public static void main(String[] args) {
 		SpringApplication.run(Dndrefv35Application.class, args);
